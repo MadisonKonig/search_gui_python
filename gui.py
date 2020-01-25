@@ -4,8 +4,10 @@ root = Tk()
 
 root.title("Search")
 
-frame = Frame(width=800, height=600)
-
+frame = Frame(root, width=800, height=600)
 frame.pack()
+
+b = Button(root)
+b.pack()
 
 root.mainloop()
