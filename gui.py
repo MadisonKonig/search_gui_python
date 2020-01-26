@@ -30,14 +30,12 @@ def click(event):
 
 
 def unclick(event):
+    square.itemconfigure(square.find_closest(event.x, event.y), fill='yellow')
     print(event)
 
 def coords(event):
     if(event.x%25 == 0 or event.y%25 == 0):
-        print(square.find_withtag("{},{}".format(event.x,event.y)).config(fill='yellow'))
-        # print(square.gettags(square.find_withtag(CURRENT)))
-        # square.itemconfig(ACTIVE, fill='yellow')
-        # print(event.widget.configure(background='yellow'))
+        square.itemconfigure(square.find_closest(event.x, event.y), fill='yellow')
         
 
 #printing grid of squares
@@ -48,7 +46,7 @@ for y in range(600):
             square.create_rectangle(x, y, x+25, y+25, fill='black', outline='white', tags='{},{}'.format(x,y))
 square.pack(expand=True)  
 
-# square.bind("<Button-1>", click)
+square.bind("<Button-1>", click)
 square.bind("<ButtonRelease-1>", unclick)
 square.bind("<B1-Motion>", coords)
 
