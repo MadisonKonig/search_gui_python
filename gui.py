@@ -34,7 +34,7 @@ def unclick(event):
 
 def coords(event):
     if(event.x%25 == 0 or event.y%25 == 0):
-        print(event)
+        print(square.find_withtag("{},{}".format(event.x,event.y)).config(fill='yellow'))
         # print(square.gettags(square.find_withtag(CURRENT)))
         # square.itemconfig(ACTIVE, fill='yellow')
         # print(event.widget.configure(background='yellow'))
