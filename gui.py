@@ -1,3 +1,4 @@
+import tkinter as tk
 from tkinter import *
 
 root = Tk()
@@ -14,8 +15,33 @@ def round_down(number, divisor):
 def noNothing():
     print("woot, nothing")
 
+starting_coord = StringVar()
+finishing_coord = StringVar()
+
 def start_this():
-    print(square.find_all())
+    print(starting_coord.get())
+    # print(square.find_all())
+
+
+def two_points():
+    print("hi")
+    window = Toplevel(root)
+    start_text = Label(window, text='start(x,y)')
+    start_text.pack()
+    # starting_coord = StringVar()
+    start_value = Entry(window, textvariable=starting_coord, bd=1)
+    start_value.pack()
+
+    finish_text = Label(window, text='start(x,y)')
+    finish_text.pack()
+    # finishing_coord = StringVar()
+    finish_value = Entry(window, textvariable=finishing_coord, bd=1)
+    finish_value.pack()
+
+    b = tk.Button(window, text='Save', command=window.destroy)
+    
+    b.pack(side=BOTTOM)
+    
 
 #Layout for menu
 menu = Menu(root)
@@ -26,6 +52,7 @@ menu.add_cascade(label='Search type', menu=subMenu)
 subMenu.add_command(label='A* Search', command=noNothing)
 subMenu.add_command(label='Breadth-First Search', command=noNothing)
 menu.add_command(label='Start', command=start_this)
+menu.add_command(label='Points', command=two_points)
 
 #functions for clicking a square
 
@@ -44,8 +71,6 @@ def unclick(event):
 def coords(event):
     square.itemconfig(square.find_closest(round_down(event.x, 50), round_down(event.y, 50)), fill='green')
     print('{}, {}'.format(round_down(event.x, 50), round_down(event.y, 50)))
-    # if(event.x%25 == 0 or event.y%25 == 0):
-        # square.itemconfigure(square.find_closest(event.x, event.y), fill='yellow')
 
         
 
