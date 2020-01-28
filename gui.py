@@ -10,15 +10,16 @@ root.title("Search")
 all_points = []
 
 square = Canvas(root, width=500, height=500)
-
+square_size = 50
+canvas_size = 500
 
 #printing grid of squares
 
-for y in range(500):
-    for x in range(500):
-        if x%50 == 0 and y%50 == 0:
-            square.create_rectangle(x, y, x+50, y+50, fill='black', outline='white', tags='{},{}'.format(x,y))
-            square.create_text((x+25, y+25), text='{},{}'.format(x, y), fill='white')
+for y in range(canvas_size):
+    for x in range(canvas_size):
+        if x%square_size == 0 and y%square_size == 0:
+            square.create_rectangle(x, y, x+square_size, y+square_size, fill='black', outline='white', tags='{},{}'.format(x,y))
+            square.create_text((x+int(square_size/2), y+int(square_size/2)), text='{},{}'.format(x, y), fill='white')
 square.pack(expand=True)  
 
 def round_down(number, divisor):
@@ -40,7 +41,7 @@ def start_this():
         for x in range(len(returned_points)):
             print(returned_points[x][0])
             tmp = returned_points[x][0].split(',')
-            square.itemconfig(square.find_closest((int(tmp[0]) * 50), (int(tmp[1]) * 50)), fill='pink')
+            square.itemconfig(square.find_closest((int(tmp[0]) * square_size), (int(tmp[1]) * square_size)), fill='pink')
 
 
 
@@ -67,8 +68,8 @@ def two_points():
         window.destroy()
         starting_points = (starting_coord.get()).split(',')
         finishing_points = (finishing_coord.get()).split(',')
-        square.itemconfig(square.find_closest((int(starting_points[0]) * 50), (int(starting_points[1]) * 50)), fill='pink')
-        square.itemconfig(square.find_closest((int(finishing_points[0]) * 50), (int(finishing_points[1]) * 50)), fill='pink')
+        square.itemconfig(square.find_closest((int(starting_points[0]) * square_size), (int(starting_points[1]) * square_size)), fill='pink')
+        square.itemconfig(square.find_closest((int(finishing_points[0]) * square_size), (int(finishing_points[1]) * square_size)), fill='pink')
 
     b = tk.Button(window, text='Save', command=close_and_save)
 
@@ -104,8 +105,8 @@ def unclick(event):
     print(event)
 
 def coords(event):
-    square.itemconfig(square.find_closest(round_down(event.x, 50), round_down(event.y, 50)), fill='green')
-    print('{}, {}'.format(round_down(event.x, 50), round_down(event.y, 50)))
+    square.itemconfig(square.find_closest(round_down(event.x, square_size), round_down(event.y, square_size)), fill='green')
+    print('{}, {}'.format(round_down(event.x, square_size), round_down(event.y, square_size)))
 
         
 
