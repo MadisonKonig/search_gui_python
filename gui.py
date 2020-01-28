@@ -48,11 +48,6 @@ def start_this():
         bfs.solve()
         
 
-
-
-
-
-
 def two_points():
     print("hi")
     window = Toplevel(root)
@@ -86,10 +81,10 @@ def two_points():
 menu = Menu(root)
 root.config(menu=menu)
 
-subMenu = Menu(menu)
+subMenu = Menu(menu, tearoff=0)
 menu.add_cascade(label='Search type', menu=subMenu)
-subMenu.add_command(label='A* Search', command=noNothing)
-subMenu.add_command(label='Breadth-First Search', command=noNothing)
+subMenu.add_checkbutton(label='A* Search', command=noNothing)
+subMenu.add_checkbutton(label='Breadth-First Search', command=noNothing)
 menu.add_command(label='Points', command=two_points)
 menu.add_command(label='Start', command=start_this)
 
