@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import *
+from bfs import *
 
 root = Tk()
 
@@ -36,13 +37,16 @@ def find_path(starting_point, goal_point, points_in_grid):
 
 
 def start_this():
+    # if starting_coord.get() != '':
+    #     returned_points = find_path(starting_coord, finishing_coord, [])
+    #     for x in range(len(returned_points)):
+    #         print(returned_points[x][0])
+    #         tmp = returned_points[x][0].split(',')
+    #         square.itemconfig(square.find_closest((int(tmp[0]) * square_size), (int(tmp[1]) * square_size)), fill='pink')
     if starting_coord.get() != '':
-        returned_points = find_path(starting_coord, finishing_coord, [])
-        for x in range(len(returned_points)):
-            print(returned_points[x][0])
-            tmp = returned_points[x][0].split(',')
-            square.itemconfig(square.find_closest((int(tmp[0]) * square_size), (int(tmp[1]) * square_size)), fill='pink')
-
+        bfs = Bfs(starting_coord, finishing_coord, [], square, square_size)
+        bfs.solve()
+        
 
 
 
