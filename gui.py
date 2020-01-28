@@ -9,6 +9,15 @@ root.title("Search")
 
 square = Canvas(root, width=500, height=500)
 
+#printing grid of squares
+
+for y in range(500):
+    for x in range(500):
+        if x%50 == 0 and y%50 == 0:
+            square.create_rectangle(x, y, x+50, y+50, fill='black', outline='white', tags='{},{}'.format(x,y))
+            square.create_text((x+25, y+25), text='{},{}'.format(x, y), fill='white')
+square.pack(expand=True)  
+
 def round_down(number, divisor):
     return (number - (number%divisor))
 
@@ -18,9 +27,14 @@ def noNothing():
 starting_coord = StringVar()
 finishing_coord = StringVar()
 
+
 def start_this():
     print(starting_coord.get())
     # print(square.find_all())
+
+
+
+
 
 
 def two_points():
@@ -38,7 +52,16 @@ def two_points():
     finish_value = Entry(window, textvariable=finishing_coord, bd=1)
     finish_value.pack()
 
-    b = tk.Button(window, text='Save', command=window.destroy)
+    def close_and_save():
+        window.destroy()
+        starting_points = (starting_coord.get()).split(',')
+        finishing_points = (finishing_coord.get()).split(',')
+        square.itemconfig(square.find_closest((int(starting_points[0]) * 50), (int(starting_points[1]) * 50)), fill='pink')
+        square.itemconfig(square.find_closest((int(finishing_points[0]) * 50), (int(finishing_points[1]) * 50)), fill='pink')
+
+    b = tk.Button(window, text='Save', command=close_and_save)
+
+    
     
     b.pack(side=BOTTOM)
     
@@ -74,14 +97,7 @@ def coords(event):
 
         
 
-#printing grid of squares
 
-for y in range(500):
-    for x in range(500):
-        if x%50 == 0 and y%50 == 0:
-            square.create_rectangle(x, y, x+50, y+50, fill='black', outline='white', tags='{},{}'.format(x,y))
-            square.create_text((x+25, y+25), text='{},{}'.format(x, y), fill='white')
-square.pack(expand=True)  
             
 
 square.bind("<Button-1>", click)
@@ -89,3 +105,15 @@ square.bind("<ButtonRelease-1>", unclick)
 square.bind("<B1-Motion>", coords)
 
 root.mainloop()
+
+
+"""
+so, I just need an array of how big the 2d array is, and pass that into a function.  
+I'll already have the starting point, and the end point
+the function will calcuate the route needed
+and return an array of nodes that will need to change color in order for this is make sense
+
+"""
+"""
+for having it show what nodes it tries as it moves along, I'll need...not actually sure on that one
+"""
