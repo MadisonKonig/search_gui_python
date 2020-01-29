@@ -8,7 +8,7 @@ root.geometry('{}x{}'.format(500, 500))
 
 root.title("Search")
 
-all_points = []
+all_points = [[0 for x in range(10)] for y in range(10)]
 
 square = Canvas(root, width=500, height=500)
 square_size = 50
@@ -19,6 +19,8 @@ canvas_size = 500
 for y in range(canvas_size):
     for x in range(canvas_size):
         if x%square_size == 0 and y%square_size == 0:
+            all_points[int(x/square_size)][int(y/square_size)] = int(x/50), int(y/50)
+            # print(f'{int(x/50)}, {int(y/50)}')
             square.create_rectangle(x, y, x+square_size, y+square_size, fill='black', outline='white', tags='{},{}'.format(x,y))
             square.create_text((x+int(square_size/2), y+int(square_size/2)), text='{},{}'.format(x, y), fill='white')
 square.pack(expand=True)  
@@ -32,19 +34,14 @@ def noNothing():
 starting_coord = StringVar()
 finishing_coord = StringVar()
 
-def find_path(starting_point, goal_point, points_in_grid):
-    return [['2,3'],['2,4'],['2,5']]
-
 
 def start_this():
-    # if starting_coord.get() != '':
-    #     returned_points = find_path(starting_coord, finishing_coord, [])
-    #     for x in range(len(returned_points)):
-    #         print(returned_points[x][0])
-    #         tmp = returned_points[x][0].split(',')
-    #         square.itemconfig(square.find_closest((int(tmp[0]) * square_size), (int(tmp[1]) * square_size)), fill='pink')
+    st_ar = starting_coord.get().split(',')
+    st_co = [(int(st_ar[0])), (int(st_ar[1]))]
+    fi_ar = finishing_coord.get().split(',')
+    fi_co = [(int(fi_ar[0])), (int(fi_ar[1]))]
     if starting_coord.get() != '':
-        bfs = Bfs(starting_coord, finishing_coord, [], square, square_size)
+        bfs = Bfs(st_co, fi_co, all_points, square, square_size)
         bfs.solve()
         
 
@@ -72,8 +69,6 @@ def two_points():
 
     b = tk.Button(window, text='Save', command=close_and_save)
 
-    
-    
     b.pack(side=BOTTOM)
     
 
