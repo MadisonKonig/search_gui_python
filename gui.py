@@ -54,7 +54,7 @@ def start_this():
         
 
 def two_points():
-    print("hi")
+    # print("hi")
     window = Toplevel(root)
     start_text = Label(window, text='start(x,y)')
     start_text.pack()
@@ -108,7 +108,7 @@ def unclick(event):
 
 def coords(event):
     square.itemconfig(square.find_closest(round_down(event.x, square_size), round_down(event.y, square_size)), fill='green')
-    print(f'{round_down(event.x, square_size)}, {round_down(event.y, square_size)}, {CURRENT}')
+    # print(f'{round_down(event.x, square_size)}, {round_down(event.y, square_size)}, {CURRENT}')
     # square.itemconfig(199, fill='blue')
 
         

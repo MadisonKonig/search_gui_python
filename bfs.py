@@ -35,12 +35,12 @@ class Bfs:
             self.xqueue.append(xx)
             self.yqueue.append(yy)
             self.visited[xx][yy] = True
-            # self.prev[self.move_count] = (x, y)
-            # self.prev[self.move_count] = (xx, yy)
+            self.prev[self.next_node] = (xx, yy)
+            # self.prev[self.next_node] = (xx, yy)
             if self.grid[xx][yy] != self.finish_point:
                 self.square.itemconfig(self.square.find_closest((xx * self.square_size),  (yy * self.square_size)), fill='blue')
             self.nodes_in_next_layer += 1
-            # self.next_node += 1
+            self.next_node += 1
 
     def solve(self):
         #row is y, col is x
@@ -48,7 +48,6 @@ class Bfs:
         # print(f'{self.grid[self.xqueue.popleft()][self.yqueue.popleft()]}, {self.finish_point}')
         
         while len(list(self.xqueue)) > 0:
-            print(len(list(self.xqueue)))
             x = self.xqueue.popleft()
             y = self.yqueue.popleft()
             if self.grid[x][y] == self.finish_point:
@@ -61,6 +60,7 @@ class Bfs:
                 self.nodes_in_next_layer = 0
                 self.move_count += 1
         if self.reached_end:
-            # print(self.prev)
+            tmp = [h for h in self.prev if h]
+            print(tmp)
             return self.move_count
         return -1
