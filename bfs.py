@@ -51,6 +51,7 @@ class Bfs:
             #increment the recording neighbours index
             self.next_node += 1
 
+    #for those attempting to help me, https://www.youtube.com/watch?v=KiCBXu4P-2Y is the video I based this off of
     def solve(self):
         #row is y, col is x
         #mark the first point as being visited
