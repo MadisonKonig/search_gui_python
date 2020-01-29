@@ -3,10 +3,6 @@ from tkinter import *
 from bfs import *
 import time
 
-class Gui:
-    def __init__(self):
-        super().__init__()
-        
 
 
 root = Tk()
