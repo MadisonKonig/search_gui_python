@@ -9,6 +9,14 @@ root.geometry('{}x{}'.format(500, 500))
 root.title("Search")
 
 all_points = [[0 for x in range(10)] for y in range(10)]
+all_squares = [[0 for x in range(20)] for y in range(20)]
+tmp_count = 0
+for i in all_squares[0]:
+    for j in all_squares[0]:
+        if tmp_count % 2 != 0:
+            all_squares[i][j] = tmp_count
+        tmp_count += 1 
+print(tmp_count)
 
 square = Canvas(root, width=500, height=500)
 square_size = 50
@@ -39,10 +47,10 @@ def start_this():
     st_ar = starting_coord.get().split(',')
     st_co = [(int(st_ar[0])), (int(st_ar[1]))]
     fi_ar = finishing_coord.get().split(',')
-    fi_co = [(int(fi_ar[0])), (int(fi_ar[1]))]
+    fi_co = ((int(fi_ar[0])), (int(fi_ar[1])))
     if starting_coord.get() != '':
         bfs = Bfs(st_co, fi_co, all_points, square, square_size)
-        bfs.solve()
+        print(bfs.solve())
         
 
 def two_points():
@@ -100,7 +108,8 @@ def unclick(event):
 
 def coords(event):
     square.itemconfig(square.find_closest(round_down(event.x, square_size), round_down(event.y, square_size)), fill='green')
-    print('{}, {}'.format(round_down(event.x, square_size), round_down(event.y, square_size)))
+    print(f'{round_down(event.x, square_size)}, {round_down(event.y, square_size)}, {CURRENT}')
+    # square.itemconfig(199, fill='blue')
 
         
 
@@ -115,12 +124,7 @@ root.mainloop()
 
 
 """
-so, I just need an array of how big the 2d array is, and pass that into a function.  
-I'll already have the starting point, and the end point
-the function will calcuate the route needed
-and return an array of nodes that will need to change color in order for this is make sense
-
-"""
-"""
-for having it show what nodes it tries as it moves along, I'll need...not actually sure on that one
+So I have the bfs attempting to work, but I don't like how the fill with squares interact
+It's grabbing the nearest one, and sometimes that's too big of one to work, I think anyway.
+I could try putting a delay on it, which would solve many of the problem?
 """
