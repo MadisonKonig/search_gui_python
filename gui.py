@@ -10,6 +10,7 @@ root.title("Search")
 
 all_points = [[0 for x in range(10)] for y in range(10)]
 all_squares = [[0 for x in range(20)] for y in range(20)]
+all_walls = [[0 for x in range(10)] for y in range(10)]
 tmp_count = 0
 for i in all_squares[0]:
     for j in all_squares[0]:
@@ -45,12 +46,14 @@ finishing_coord = StringVar()
 
 def start_this():
     st_ar = starting_coord.get().split(',')
-    st_co = [(int(st_ar[0])), (int(st_ar[1]))]
+    st_co = ((int(st_ar[0])), (int(st_ar[1])))
     fi_ar = finishing_coord.get().split(',')
     fi_co = ((int(fi_ar[0])), (int(fi_ar[1])))
     if starting_coord.get() != '':
         bfs = Bfs(st_co, fi_co, all_points, square, square_size)
-        print(bfs.solve())
+        path = bfs.solve()
+        for i in path[1:-1]:
+            square.itemconfig(square.find_closest((i[0] * square_size), (i[1] * square_size)), fill='blue')
         
 
 def two_points():
@@ -108,6 +111,8 @@ def unclick(event):
 
 def coords(event):
     square.itemconfig(square.find_closest(round_down(event.x, square_size), round_down(event.y, square_size)), fill='green')
+    print(f'{int(round_down(event.x, square_size)/square_size)}, {int(round_down(event.y, square_size)/square_size)}')
+    # all_walls[]
     # print(f'{round_down(event.x, square_size)}, {round_down(event.y, square_size)}, {CURRENT}')
     # square.itemconfig(199, fill='blue')
 
