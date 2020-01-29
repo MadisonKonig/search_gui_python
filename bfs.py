@@ -34,7 +34,6 @@ class Bfs:
             self.yqueue.append(yy)
             self.visited[xx][yy] = True
             self.square.itemconfig(self.square.find_closest((xx * self.square_size),  (yy * self.square_size)), fill='yellow')
-            # time.sleep(1)
             self.nodes_in_next_layer += 1
 
     def solve(self):
