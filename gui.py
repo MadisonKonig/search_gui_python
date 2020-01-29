@@ -1,6 +1,13 @@
 import tkinter as tk
 from tkinter import *
 from bfs import *
+import time
+
+class Gui:
+    def __init__(self):
+        super().__init__()
+        
+
 
 root = Tk()
 
@@ -9,15 +16,7 @@ root.geometry('{}x{}'.format(500, 500))
 root.title("Search")
 
 all_points = [[0 for x in range(10)] for y in range(10)]
-all_squares = [[0 for x in range(20)] for y in range(20)]
-all_walls = [[0 for x in range(10)] for y in range(10)]
-tmp_count = 0
-for i in all_squares[0]:
-    for j in all_squares[0]:
-        if tmp_count % 2 != 0:
-            all_squares[i][j] = tmp_count
-        tmp_count += 1 
-print(tmp_count)
+all_walls = set()
 
 square = Canvas(root, width=500, height=500)
 square_size = 50
@@ -31,7 +30,7 @@ for y in range(canvas_size):
             all_points[int(x/square_size)][int(y/square_size)] = int(x/50), int(y/50)
             # print(f'{int(x/50)}, {int(y/50)}')
             square.create_rectangle(x, y, x+square_size, y+square_size, fill='black', outline='white', tags='{},{}'.format(x,y))
-            square.create_text((x+int(square_size/2), y+int(square_size/2)), text='{},{}'.format(x, y), fill='white')
+            # square.create_text((x+int(square_size/2), y+int(square_size/2)), text='{},{}'.format(x, y), fill='white')
 square.pack(expand=True)  
 
 def round_down(number, divisor):
@@ -43,17 +42,21 @@ def noNothing():
 starting_coord = StringVar()
 finishing_coord = StringVar()
 
+def drawBlue(i):
+    square.itemconfig(square.find_closest((i[0] * square_size), (i[1] * square_size)), fill='blue')
 
 def start_this():
-    st_ar = starting_coord.get().split(',')
-    st_co = ((int(st_ar[0])), (int(st_ar[1])))
-    fi_ar = finishing_coord.get().split(',')
-    fi_co = ((int(fi_ar[0])), (int(fi_ar[1])))
+    print(all_walls)
     if starting_coord.get() != '':
-        bfs = Bfs(st_co, fi_co, all_points, square, square_size)
+        st_ar = starting_coord.get().split(',')
+        st_co = ((int(st_ar[0])), (int(st_ar[1])))
+        fi_ar = finishing_coord.get().split(',')
+        fi_co = ((int(fi_ar[0])), (int(fi_ar[1])))
+        bfs = Bfs(st_co, fi_co, all_points, square, square_size, all_walls)
         path = bfs.solve()
         for i in path[1:-1]:
-            square.itemconfig(square.find_closest((i[0] * square_size), (i[1] * square_size)), fill='blue')
+            drawBlue(i)
+            # root.after(3000, drawBlue(i))
         
 
 def two_points():
@@ -112,7 +115,7 @@ def unclick(event):
 def coords(event):
     square.itemconfig(square.find_closest(round_down(event.x, square_size), round_down(event.y, square_size)), fill='green')
     print(f'{int(round_down(event.x, square_size)/square_size)}, {int(round_down(event.y, square_size)/square_size)}')
-    # all_walls[]
+    all_walls.add((int(round_down(event.x, square_size)/square_size), int(round_down(event.y, square_size)/square_size)))
     # print(f'{round_down(event.x, square_size)}, {round_down(event.y, square_size)}, {CURRENT}')
     # square.itemconfig(199, fill='blue')
 

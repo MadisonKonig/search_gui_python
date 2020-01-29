@@ -1,9 +1,8 @@
 import collections
-import time
 
 class Bfs:
 
-    def __init__(self, starting_point, finish_point, grid, square, square_size):
+    def __init__(self, starting_point, finish_point, grid, square, square_size, all_walls):
         super().__init__()
         self.starting_point = starting_point
         self.finish_point = finish_point
@@ -21,6 +20,7 @@ class Bfs:
         self.yqueue = collections.deque([self.starting_point[1]])
         self.prev = [None for nu in range(100)]
         self.next_node = 0
+        self.all_walls = all_walls
 
 
     def solve(self):
@@ -59,8 +59,8 @@ class Bfs:
             newc = d[1] + v[1]
             if newr < 0 or newr >= len(self.grid) or newc < 0 or newc >= len(self.grid[0]):
                 continue
-            # if self.grid[newr][newc] == 'X':
-            #     continue
+            if self.grid[newr][newc] in self.all_walls:
+                continue
             retval.append((newr, newc))
         return retval
 
