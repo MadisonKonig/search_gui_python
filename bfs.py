@@ -11,9 +11,18 @@ class Bfs:
         self.square_size = square_size
 
     def solve(self):
+        #row is y, col is x
+        visited = [[False for x in range(10)] for y in range(10)]
+        xqueue = collections.deque([self.starting_point[0]])
+        yqueue = collections.deque([self.starting_point[1]])
+        visited[self.starting_point[0]][self.starting_point[1]] = True
 
-        current_coordx, current_coordy = self.starting_point[0], self.starting_point[1]
-        print(f'{current_coordx} & {current_coordy}')
+        # while len(list(xqueue)) > 0:
+            
+
+
+        # current_coordx, current_coordy = self.starting_point[0], self.starting_point[1]
+        # print(f'{current_coordx} & {current_coordy}')
 
         # queue = collections.deque([self.starting_point])
         
